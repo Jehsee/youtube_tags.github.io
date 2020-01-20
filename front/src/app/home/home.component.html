@@ -1,0 +1,17 @@
+<div class="card">
+    <p>Copy and Paste Youtube Link below</p>
+
+    <form #form="ngForm" (ngSubmit)='onYouTubeIframeAPIReady(form)'>
+        <div class="input-group mb-3">
+            <input ngModel type="text" name="youtubeLink" class="form-control" placeholder="For Example: https://www.youtube.com/watch?v=vjf774RKrLc" aria-label="Youtube Link" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" id="button-addon2">Load</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <div id="player"></div>
+</div>
+
