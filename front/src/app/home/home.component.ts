@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl } from '@angular/forms';
 
 @Component({
   templateUrl: './home.component.html',
@@ -12,7 +12,9 @@ export class HomeComponent implements OnInit {
   public reframed: boolean = false;
   public done: boolean = false;
 
+  youtubeLink = new FormControl();
   videoId: string;
+  submitted: boolean = false;
 
   constructor() { }
 
@@ -26,6 +28,7 @@ export class HomeComponent implements OnInit {
   }
   
   onYouTubeIframeAPIReady(form: NgForm) {
+    this.submitted = true;
     this.videoId = form.value.youtubeLink.split('?v=')[1]
 
     // @ts-ignore
@@ -37,6 +40,8 @@ export class HomeComponent implements OnInit {
         'onReady': this.onPlayerReady.bind(this)
       }
     });
+
+    console.log('this.player: ',this.player)
   }
 
   onPlayerReady(event) {

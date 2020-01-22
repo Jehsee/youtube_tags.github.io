@@ -1,17 +1,16 @@
-<div class="card">
-    <p>Copy and Paste Youtube Link below</p>
+<mat-card class="formCard">
+    <mat-card-title>Enter Youtube link below</mat-card-title>
+    <mat-card-content>
+        <form #link="ngForm" (ngSubmit)='onYouTubeIframeAPIReady(link)'>
+            <mat-form-field floatLabel="auto" color="primary" appearance="outline">
+                <mat-label>Youtube Link</mat-label>
+                <input ngModel name="youtubeLink" class="inputField" matInput required placeholder="e.g. https://www.youtube.com/watch?v=vjf774RKrLc">
+            </mat-form-field>
+            <button class="loadButton" mat-raised-button color="accent">Load</button>
+        </form>
+    </mat-card-content>
+</mat-card>
 
-    <form #form="ngForm" (ngSubmit)='onYouTubeIframeAPIReady(form)'>
-        <div class="input-group mb-3">
-            <input ngModel type="text" name="youtubeLink" class="form-control" placeholder="For Example: https://www.youtube.com/watch?v=vjf774RKrLc" aria-label="Youtube Link" aria-describedby="button-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-outline-primary" id="button-addon2">Load</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-<div class="card">
+<mat-card class="videoCard formCard">
     <div id="player"></div>
-</div>
-
+</mat-card>
