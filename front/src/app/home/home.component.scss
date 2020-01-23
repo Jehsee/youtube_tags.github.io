@@ -3,6 +3,10 @@
     margin: 3em auto;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 .mat-card-title, .mat-card-content, .videoCard {
     text-align:center;
 }
@@ -14,4 +18,25 @@
 .loadButton {
     vertical-align: super;
     margin-left: 15px;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.videowrapper {
+    float: none;
+    clear: both;
+    width: 100%;
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+}
+.videowrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

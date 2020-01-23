@@ -1,16 +1,20 @@
-<mat-card class="formCard">
-    <mat-card-title>Enter Youtube link below</mat-card-title>
-    <mat-card-content>
-        <form #link="ngForm" (ngSubmit)='onYouTubeIframeAPIReady(link)'>
-            <mat-form-field floatLabel="auto" color="primary" appearance="outline">
+<form [formGroup]="tagForm" novalidate (ngSubmit)='onYouTubeIframeAPIReady(tagForm)'>
+    <mat-card class="formCard">
+        <mat-card-content>
+            <mat-card-title>Enter Youtube link below</mat-card-title>
+            <mat-form-field color="primary" appearance="outline">
                 <mat-label>Youtube Link</mat-label>
-                <input ngModel name="youtubeLink" class="inputField" matInput required placeholder="e.g. https://www.youtube.com/watch?v=vjf774RKrLc">
+                <input formControlName="youtubeLink" class="inputField" matInput placeholder="e.g. https://www.youtube.com/watch?v=vjf774RKrLc">
             </mat-form-field>
             <button class="loadButton" mat-raised-button color="accent">Load</button>
-        </form>
-    </mat-card-content>
+        </mat-card-content>
+    </mat-card>
+</form>
+    
+<mat-card [ngClass]="{'visible': playerCreated}" class="videoCard formCard hidden">
+    <div class="videoWrapper">
+        <div id="player"></div>
+    </div>
 </mat-card>
 
-<mat-card class="videoCard formCard">
-    <div id="player"></div>
-</mat-card>
+<chips *ngIf="showChipsComponent" [youtubeUrl]="youtubeUrl"></chips>

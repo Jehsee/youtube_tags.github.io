@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+
 })
 export class HomeComponent implements OnInit {
   public YT: any;
@@ -12,13 +13,20 @@ export class HomeComponent implements OnInit {
   public reframed: boolean = false;
   public done: boolean = false;
 
-  youtubeLink = new FormControl();
-  videoId: string;
-  submitted: boolean = false;
+  tagForm: FormGroup;
+  playerCreated: boolean = false;
+  showChipsComponent: boolean = false;
+  youtubeUrl:string;
 
   constructor() { }
 
   ngOnInit() {
+    this.tagForm = new FormGroup({
+      youtubeLink: new FormControl('')
+    })
+
+    this.tagForm.valueChanges.subscribe(console.log)
+
     // 2. This code loads the IFrame Player API code asynchronously.
     var tag = document.createElement('script');
   
@@ -27,25 +35,35 @@ export class HomeComponent implements OnInit {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   }
   
-  onYouTubeIframeAPIReady(form: NgForm) {
-    this.submitted = true;
-    this.videoId = form.value.youtubeLink.split('?v=')[1]
-
-    // @ts-ignore
-    this.player = new YT.Player('player', {
-      height: '390',
-      width: '640',
-      videoId: this.videoId,
-      events: {
-        'onReady': this.onPlayerReady.bind(this)
-      }
-    });
-
-    console.log('this.player: ',this.player)
+  onYouTubeIframeAPIReady(tagForm: FormGroup) {
+    this.youtubeUrl = tagForm.value.youtubeLink
+    let videoId = tagForm.value.youtubeLink.split('?v=')[1]
+    if (this.player) {
+      this.player.loadVideoById(videoId)
+    } else {
+      // @ts-ignore
+      this.player = new YT.Player('player', {
+        height: '450',
+        width: '100%',
+        videoId: videoId,
+        events: {
+          'onReady': this.onPlayerReady.bind(this),
+          'onError': this.onPlayerError.bind(this)
+        }
+      });
+      this.playerCreated = true;
+    }
   }
 
   onPlayerReady(event) {
     event.target.playVideo();
+    this.showChipsComponent = true;
+  }
+
+  onPlayerError(event) {
+    if (event.data == 2) {
+      console.log('the url seems to be invalid')
+    }
   }
 
 
