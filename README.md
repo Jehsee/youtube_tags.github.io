@@ -18,5 +18,5 @@ the features were mostly built out already.
 Angular Material is pretty awesome for someone who is not a designer.
 
 todo
-the db password should be in variables
-validations and error handling needs be added
+- the db password should be in variables
+- validations and error handling needs be added
