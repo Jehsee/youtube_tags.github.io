@@ -1,1 +1,28 @@
-<p>search works!</p>
+<mat-spinner *ngIf="loading"></mat-spinner>
+<mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
+<mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
+
+<mat-card>
+    <table mat-table [dataSource]="videos" class="">
+        <ng-container matColumnDef="videoUrls">
+            <th mat-header-cell *matHeaderCellDef>Video</th>
+            <td mat-cell *matCellDef="let video; let i = index">
+                <h5>{{ video.url }}</h5>
+                <div id="player-{{i}}"></div>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="videoTags">
+            <th mat-header-cell *matHeaderCellDef>Tags</th>
+            <td mat-cell *matCellDef="let video">
+                <chips [tags]="video.tags"></chips>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef>Update</th>
+            <td mat-cell *matCellDef="let video"><button (click)="updateVideo(video)" mat-raised-button color="accent">Update</button></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let videos; columns: columns"></tr>
+    </table>
+</mat-card>

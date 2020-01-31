@@ -17,4 +17,6 @@
     </div>
 </mat-card>
 
-<chips *ngIf="showChipsComponent" [youtubeUrl]="youtubeUrl"></chips>
+<mat-card *ngIf="showChipsComponent" class="formCard">
+    <chips [youtubeUrl]="youtubeUrl"></chips>
+</mat-card>
